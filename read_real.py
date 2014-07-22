@@ -15,6 +15,9 @@ dict_peak_list = dict()
 
 file = file.open('/c13.peaks')
 # ...
+for i in xrange(5):
+  file.readline()
+  
 for line in file:
   line = line.rstrip('\n\r')
   line = line.re(' +')
@@ -39,7 +42,8 @@ while queue:
     if abs(dict_peak_list[node].cs_H1 - dict_peak_list[other_node].cs_H1) <= tol_H and \
       abs(dict_peak_list[node].cs_C - dict_peak_list[other_node].cs_C) <= tol_C:
         queue.remove(other_node)
-  nodes.add(node)
+  nodes.add(node) # adding the spin root (H,C) into the nodes
+
 
 
   
