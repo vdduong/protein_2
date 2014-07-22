@@ -44,6 +44,8 @@ while queue:
         queue.remove(other_node)
   nodes.add(node) # adding the spin root (H,C) into the nodes
 
+# here we should have the list of spin roots (or nodes) and their corresponding volume (that can be translated into 
+# distance restraints). The construction from now on should be the same as the previous project. 
 
 
   
