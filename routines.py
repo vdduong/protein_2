@@ -131,7 +131,8 @@ def connected_components(nodes):
     result.append(group) # add the group to the list of groups
   return result 
 
-
+def iterative_procedure():
+  pass
         
         
         
