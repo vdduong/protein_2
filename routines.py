@@ -47,7 +47,7 @@ def fw_algo(vertices, dict_distance):
   for k in vertices:
     for i in vertices:
       for j in vertices:
-        d[(i,j)] = min(d[(i,j)], d[(i,k)] + d[(k,j)])
+        d[i][j] = min(d[i][j], d[i][k] + d[k][j])
   return d
 
 def constructing_4_points(list_4_points, dict_distance):
@@ -58,23 +58,23 @@ def constructing_4_points(list_4_points, dict_distance):
   dict_coord[atom_1] = Point(atom_1, x1, y1, z1)
   
   atom_2 = list_4_points[1]
-  x2 = float('%.4f'%dict_distance[(atom_1, atom_2)])
+  x2 = float('%.4f'%dict_distance[atom_1][atom_2])
   y2 = 0.0
   z2 = 0.0
   dict_coord[atom_2] = Point(atom_2, x2, y2, z2)
   
   atom_3 = list_4_points[2]
-  d31 = dict_distance[(atom_1, atom_3)]
-  d32 = dict_distance[(atom_2, atom_3)]
+  d31 = dict_distance[atom_1][atom_3]
+  d32 = dict_distance[atom_2][atom_3]
   x3 = float('%.4f'%((d31**2.0 - d32**2.0)/(2.0*x2) + x2/2.0))
   y3 = float('%.4f'%((d31**2.0 - x3**2.0)**(0.5)))
   z3 = 0.0
   dict_coord[atom_3] = Point(atom_3, x3, y3, z3)
   
   atom_4 = list_4_points[3]
-  d41 = dict_distance[(atom_1, atom_4)]
-  d42 = dict_distance[(atom_2, atom_4)]
-  d43 = dict_distance[(atom_3, atom_4)]
+  d41 = dict_distance[atom_1][atom_4]
+  d42 = dict_distance[atom_2][atom_4]
+  d43 = dict_distance[atom_3][atom_4]
   x4 = float('%.4f'%((d41**2.0 - d42**2.0)/(2.0*x2) + x2/2.0))
   y4 = float('%.4f'%((d42**2.0 - d43**2.0 - (x4-x2)**2.0 + (x4-x3)**2.0)/(2.0*y3) +y3/2.0))
   z4 = float('%.4f'%((d41**2.0 - x4**2.0 - y4**2.0)**0.5))
@@ -92,10 +92,10 @@ def fifth_point(atom_5, list_4_points, dict_distance, dict_coord):
   x3, y3, z3 = dict_coord[atom_3].x, dict_coord[atom_3].y, dict_coord[atom_3].z
   x4, y4, z4 = dict_coord[atom_4].x, dict_coord[atom_4].y, dict_coord[atom_4].z
   
-  d54 = dict_distance[(atom_5, atom_4)]
-  d53 = dict_distance[(atom_5, atom_3)]
-  d52 = dict_distance[(atom_5, atom_2)]
-  d51 = dict_distance[(atom_5, atom_1)]
+  d54 = dict_distance[atom_5][atom_4]
+  d53 = dict_distance[atom_5][atom_3]
+  d52 = dict_distance[atom_5][atom_2]
+  d51 = dict_distance[atom_5][atom_1]
   
   a = np.array([[2.0*(x3-x4), 2.0*(y3-y4), 2.0*(z3-z4)],\
         [2.0*(x2-x4), 2.0*(y2-y4), 2.0*(z2-z4)], \
