@@ -12,3 +12,24 @@ def pairing_HN():
 # consider only the network of HN protons (backbone+sidechain) and the initial distance matrix
 # given those information, one creates ordered groups of four connected protons
 # then compares those groups to form the longest possible chain of protons ?
+
+adj_table = {}
+for node in nodes:
+  adj_table[node] = {}
+
+def prob_adj(HN_1, HN_2, distance_matrix):
+  neighbors = {}
+  neighbors[HN_1] = distance_matrix[HN_1].keys()
+  neighbors[HN_2] = distance_matrix[HN_2].keys()
+  commun = len(set(neighbors[HN_1]).intersection(set(neighbors[HN_2])))
+  flow_out_1 = len(set(neighbors[HN_1]))
+  flow_out_2 = len(set(neighbors[HN_2]))
+  adj_table[HN_1][HN_2] = float(commun)/float(flow_out_1)
+  adj_table[HN_2][HN_1] = float(commun)/float(flow_out_1)
+  return adj_table
+
+def longest_chain(adj_table, nodes):
+  '''define the longest chains of HN found from table of adjacency'''
+  ### longest transverse ?
+  
+  return None
