@@ -131,9 +131,40 @@ def connected_components(nodes):
     result.append(group) # add the group to the list of groups
   return result 
 
-def iterative_procedure():
-  pass
-        
+def iterative_procedure(vertices, distance_matrix):
+	list_c = list(vertices)
+	list_vertices = list(vertices)
+	dict_models = {}
+	nb_model_build = 100
+	nb_try = 0
+	while nb_try < nb_model_build:
+			try: 
+				dict_coord = {}
+				random.shuffle(list_c)
+				list_4_points = list_c[:4]
+				#print list_4_points
+				dict_coord = constructing_4_points(list_4_points, distance_matrix)
+				for i in xrange(4, len(list_c)):
+					next_point = list_c[i]
+					x_n, y_n, z_n = fifth_point(next_point, list_4_points, distance_matrix, dict_coord)
+					dict_coord[next_point] = Point(next_point, x_n, y_n, z_n)
+		
+				V = []
+				for key in list_vertices:
+					x, y, z = dict_coord[key].x, dict_coord[key].y, dict_coord[key].z
+					coord = [x,y,z]
+					V.append(np.array(coord))
+				V = np.array(V)
+				V_c = centroid(V)
+				V-=V_c
+				dict_models[nb_try]=V
+				nb_try+=1
+				#for i in xrange(len(vertices)):
+				#	print V[i][0], V[i][1],V[i][2]
+			except ValueError: pass
+			except ZeroDivisionError: pass	
+	return dict_models
+
         
         
         
