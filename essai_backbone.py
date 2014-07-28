@@ -56,7 +56,16 @@ def chain_score(chain,adj_table):
 
 # recursive processus ?
 # think about the method of putting another proton into a chain of i protons already ordered 
+# nodes_HN, adj_table, chain
 
+def add_node(node, chain, adj_table):
+  score = [[] for i in xrange(len(chain)+1)]
+  for i in xrange(0, len(chain)-1):
+    score[i+1]+=adj_table[chain[i]][node] + adj_table[node][chain[i+1]]
+  score[0]=adj_table[node][chain[0]]
+  score[len(chain)]=adj_table[chain[len(chain)-1]][node]
+  for i in xrange(len(score)):
+    print i, score[i]
 
 
 
