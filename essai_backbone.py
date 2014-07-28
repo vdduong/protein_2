@@ -29,7 +29,9 @@ def prob_adj(HN_1, HN_2, distance_matrix):
   neighbors[HN_2] = distance_matrix[HN_2].keys()
   commun = len(set(neighbors[HN_1]).intersection(set(neighbors[HN_2])))
   flow_out = len(set(neighbors[HN_1]))
-  adj_table[HN_1][HN_2] = float(commun)/float(flow_out_1)
+  if HN_2 in neighbors[HN_1]:
+    commun+=2
+  adj_table[HN_1][HN_2] = float(commun)/float(flow_out)
   return adj_table[HN_1][HN_2]
 
 def longest_chain(adj_table, nodes):
@@ -41,9 +43,22 @@ def longest_chain(adj_table, nodes):
 for HN_1 in nodes_HN:
   for HN_2 in nodes_HN:
     adj_table[HN_1][HN_2] = prob_adj(HN_1, HN_2, distance_matrix)
-    if adj_table[HN_1][HN_2] > 0.0:
-      print HN_1, HN_2, adj_table[HN_1][HN_2]
+    #if adj_table[HN_1][HN_2] > 0.0:
+    #  print HN_1, HN_2, adj_table[HN_1][HN_2]
+def chain_score(chain,adj_table):
+  global len_prot # length of the protein in term of residus
+  score = 0.0
+  if len(chain) > len_prot: raise ValueError('length of the chain is more than what is necessary')
+  else:
+    for i in xrange(len(chain)-1):
+      score+=adj_table[chain[i]][chain[j]]
+  return score
 
-    
+# recursive processus ?
+# think about the method of putting another proton into a chain of i protons already ordered 
+
+
+
+
     
     
