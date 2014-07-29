@@ -208,7 +208,21 @@ print chain_score(list_beta, adj_table)
 #print list_beta
 #print chain_score(list_beta, adj_table)
 
+# using depth first search to find the chain:
+nodes_residual = dfs('H_2', adj_table, nodes_HN) # choose H_2 as starting point but anything could fit
+chain = [nodes_residual[0], nodes_residual[1]]
+for item in chain:
+	nodes_residual.remove(item)
 
+chains = [chain]
+while nodes_residual.pop():
+	node = nodes_residual.pop()
+	chains = chains_adding(node, chains, adj_table)
+
+for item in chains:
+	print item, chain_score(item, adj_table)
+	print '\n'
+print chain_score(list_beta, adj_table)
 
 
 
