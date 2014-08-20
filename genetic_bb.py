@@ -18,6 +18,7 @@ def bacbone_tracing(adj_table, backbone_root):
           if check_fragment(new_fragment): new_population.append(new_fragment)
     size_superposed+=1
     fragment_size+=1
+    family_backbone = new_population
   return backbone
 
 def check_fragment(fragment):
